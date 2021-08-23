@@ -88,6 +88,17 @@ a {
   background-color: transparent;
 }
 
+.btn-eliminar {
+  background-color: var(--blanco);
+  transition: all .3 s ease;
+}
+
+.btn-eliminar:hover {
+  background-color: var(--gris2);
+  color: var(--blanco);
+}
+
+
 @media (min-width: 768px) {
   .contenedor-app {
       display: flex;

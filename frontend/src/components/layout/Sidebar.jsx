@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import NuevoProyecto from '../proyectos/NuevoProyecto';
 import ListadoProyectos from '../proyectos/ListadoProyectos';
+import ProyectoContext from '../../context/proyectos/proyectoContext';
 
 const Sidebar = () => {
+
+    const { proyectos } = useContext(ProyectoContext);
 
     return ( 
         <aside>
@@ -11,7 +14,8 @@ const Sidebar = () => {
             <NuevoProyecto />
 
             <div className="proyectos">
-                <h2>Tus Proyectos</h2>
+
+                { proyectos.length === 0 ? <h2>No tienes proyectos</h2> : <h2>Tus Proyectos</h2>}
 
                 <ListadoProyectos />  
 
