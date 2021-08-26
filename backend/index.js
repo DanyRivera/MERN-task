@@ -7,13 +7,15 @@ const app = express();
 //conectar a la base de datos
 conectarDB();
 
+//Habilitar express.json
+app.use(express.json({ extended: true }))
+
 //puerto de la app
 const PORT = process.env.PORT || 4000;
 
-//Definir la pagina principal
-app.get('/', (req, res) => {
-    res.send('Hola mundo')
-} )
+//Importar Rutas
+app.use('/api/usuarios', require('./routes/usuarios'));
+
 
 //arrancar el server
 app.listen( PORT, () => {
