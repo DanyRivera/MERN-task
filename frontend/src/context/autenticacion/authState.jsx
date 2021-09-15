@@ -1,6 +1,8 @@
 import React, {useReducer} from 'react'
 import AuthContext from './authContext';
 import AuthReducer from './authReducer';
+import clienteAxios from '../../config/axios';
+import tokenAuth from '../../config/token';
 
 import {
     REGISTRO_EXITOSO,
@@ -15,7 +17,7 @@ const AuthState = props => {
 
     const initialState = {
         token: localStorage.getItem('token'),
-        atenticado: null,
+        autenticado: null,
         usuario: null,
         mensaje: null
     }
@@ -23,15 +25,75 @@ const AuthState = props => {
     const [ state, dispatch ] = useReducer(AuthReducer, initialState);
 
     //Las Funciones
+    const registrarUsuario = async datos => {
+
+        try {
+
+            const respuesta = await clienteAxios.post('/api/usuarios', datos);
+            console.log(respuesta.data);
+
+            dispatch({
+                type: REGISTRO_EXITOSO,
+                paidload: respuesta.data
+            })
+
+            usuarioAutenticado()
+            
+        } catch (error) {
+            // console.log(error.response.data.msg);
+
+            const alerta = {
+                msg: error.response.data.msg,
+                categoria: 'alerta-error'
+            }
+
+            dispatch({
+                type: REGISTRO_ERROR,
+                paidload: alerta
+            })
+
+        }
+
+    }
+
+    //Retorna el usuario autenticado
+    const usuarioAutenticado = async () => {
+
+        const token = localStorage.getItem('token');
+
+        if(token) {
+            //Funcion para enviar el token por headers
+            tokenAuth(token);
+        }
+
+        try {
+
+            const respuesta = await clienteAxios.get('/api/auth');
+            // console.log(respuesta);
+
+            dispatch({
+                type: OBTENER_USUARIO,
+                paidload: respuesta.data.usuario
+            })
+            
+        } catch (error) {
+            console.log(error);
+            dispatch({
+                type: LOGIN_ERROR
+            })
+        }
+
+    }
 
     return (
 
         <AuthContext.Provider
             value={{
                 token: state.token, 
-                autenticado: state.atenticado,
+                autenticado: state.autenticado,
                 usuario: state.usuario,
-                mensaje: state.mensaje
+                mensaje: state.mensaje,
+                registrarUsuario
             }}
         >
 
