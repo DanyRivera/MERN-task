@@ -88,6 +88,10 @@ a {
   background-color: transparent;
 }
 
+.blank {
+  color: #ffffff;
+}
+
 .btn-eliminar {
   background-color: var(--blanco);
   transition: all .3 s ease;
