@@ -1,6 +1,5 @@
 import React, { Fragment, useContext } from 'react';
 import Tarea from './Tarea';
-
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
 import ProyectoContext from '../../context/proyectos/proyectoContext';
@@ -20,7 +19,7 @@ const ListadoTareas = () => {
     const [proyectoActual] = proyecto
 
     const onClickEliminar = () => {
-        eliminarProyecto(proyectoActual.id)
+        eliminarProyecto(proyectoActual._id)
     }
 
     return (

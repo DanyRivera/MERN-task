@@ -12,13 +12,14 @@ const Proyecto = ({proyecto}) => {
         mostrarTareas(id)
     }
 
+    // console.log(proyecto.nombre)
 
     return ( 
         <li>
             <button
                 type="button"
                 className="btn btn-blank"
-                onClick={ () => onClick(proyecto.id)}
+                onClick={ () => onClick(proyecto._id)}
             >{proyecto.nombre}</button>
         </li>
     );
