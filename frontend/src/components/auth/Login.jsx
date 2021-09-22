@@ -11,7 +11,7 @@ const Login = (props) => {
     const { alerta, mostrarAlerta } = alertaContext;
 
     const authContext = useContext(AuthContext);
-    const { iniciarSesion, mensaje, autenticado, registrarUsuario } = authContext;
+    const { iniciarSesion, mensaje, autenticado } = authContext;
 
     //En caso de que password o usuario no exista
     useEffect( () => {
@@ -24,6 +24,7 @@ const Login = (props) => {
             mostrarAlerta(mensaje.msg, mensaje.categoria);
         }
 
+        //eslint-disable-next-line
     }, [mensaje, autenticado, props.history] )
 
     //State para iniciar sesión
